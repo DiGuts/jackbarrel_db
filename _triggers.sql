@@ -1,22 +1,50 @@
 CREATE OR REPLACE TRIGGER tr_update_client
-    after insert on VENDA
-    for each row
-    declare
-        PRAGMA AUTONOMOUS_TRANSACTION;
-    begin
-        UPDATE CLIENT
-        SET client.VALORTOTALVENDES = CLIENT.VALORTOTALVENDES + TOTAL_VENDA(:new.CODIVENDA)
-        WHERE CLIENT.CODICLIENT = :NEW.CODICLIENT;
-        commit;
-    end;
+    AFTER INSERT
+    ON venda
+    FOR EACH ROW
+DECLARE
+    PRAGMA AUTONOMOUS_TRANSACTION;
+BEGIN
+    UPDATE client
+    SET client.valortotalvendes = client.valortotalvendes + total_venda(:new.codivenda)
+    WHERE client.codiclient = :new.codiclient;
+    COMMIT;
+END;
 
-UPDATE CLIENT
-SET client.VALORTOTALVENDES = 0;
+UPDATE client
+SET client.valortotalvendes = 0;
 
-DROP TRIGGER  TR_UPDATE_CLIENT;
+DROP TRIGGER tr_update_client;
 
-select * from CLIENT;
-select * from VENEDOR;
-select * from VENDA;
+SELECT *
+FROM client;
+SELECT *
+FROM venedor;
+SELECT *
+FROM venda;
 
-call NOVA_VENDA(5, 1, 2);
+CALL nova_venda(5, 1, 2);
+
+CREATE OR REPLACE TRIGGER restock
+    AFTER UPDATE OR INSERT
+    ON vendadetall
+    FOR EACH ROW
+DECLARE
+    p                 producte%rowtype;
+    codi_comanda      INT;
+    comanda_quantitat NUMBER;
+BEGIN
+    SELECT * INTO p FROM producte WHERE codiproducte = :new.producte;
+
+    SELECT NVL(MAX(codicomanda), 0) INTO codi_comanda FROM comanda;
+    codi_comanda := codi_comanda + 1;
+
+    IF p.stockactual < p.stockminim THEN
+        comanda_quantitat := p.stockminim - p.stockactual;
+        INSERT INTO comanda
+        VALUES (codi_comanda, p.codiproducte, comanda_quantitat, SYSDATE);
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        dbms_output.put_line(SQLERRM);
+END;
