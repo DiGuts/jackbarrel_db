@@ -4,7 +4,12 @@
 Aquesta base de dades gestiona informació sobre clients, proveïdors, venedors, productes i vendes. Tot i que l'exemple està enfocat en botelles i barrils de Jack Daniels, l'estructura permet gestionar qualsevol tipus de producte.
 
 ## Fitxers
-- **create_database.sql**: Conté les instruccions SQL per a la creació de la base de dades.
+- **create_database.sql**: Creació de la base de dades.
+- **drop_database.sql**: Eliminació de la base de dades.
+- **_procedures.sql**: Procediments.
+- **_functions.sql**: Funcions.
+- **_triggers.sql**: Triggers.
+- **demo_data.sql**: Dades de prova.
 
 ## Taules Principals
 
