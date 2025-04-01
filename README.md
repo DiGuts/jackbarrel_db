@@ -1,4 +1,4 @@
-# Jack Daniels Bottles & Barrels - Database
+# Jack Barrel - Database
 
 ## Descripció
 Aquesta base de dades gestiona informació sobre clients, proveïdors, venedors, productes i vendes. Tot i que l'exemple està enfocat en botelles i barrils de Jack Daniels, l'estructura permet gestionar qualsevol tipus de producte.
