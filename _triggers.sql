@@ -1,30 +1,3 @@
-CREATE OR REPLACE TRIGGER tr_update_client
-    AFTER INSERT
-    ON venda
-    FOR EACH ROW
-DECLARE
-    PRAGMA AUTONOMOUS_TRANSACTION;
-BEGIN
-    UPDATE client
-    SET client.valortotalvendes = client.valortotalvendes + total_venda(:new.codivenda)
-    WHERE client.codiclient = :new.codiclient;
-    COMMIT;
-END;
-
-UPDATE client
-SET client.valortotalvendes = 0;
-
-DROP TRIGGER tr_update_client;
-
-SELECT *
-FROM client;
-SELECT *
-FROM venedor;
-SELECT *
-FROM venda;
-
-CALL nova_venda(5, 1, 2);
-
 CREATE OR REPLACE TRIGGER restock
     AFTER UPDATE OR INSERT
     ON vendadetall

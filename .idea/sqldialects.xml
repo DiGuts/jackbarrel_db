@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/_functions.sql" dialect="OracleSqlPlus" />
     <file url="file://$PROJECT_DIR$/_procedures.sql" dialect="OracleSqlPlus" />
     <file url="file://$PROJECT_DIR$/_triggers.sql" dialect="OracleSqlPlus" />
+    <file url="file://$PROJECT_DIR$/create_database.sql" dialect="OracleSqlPlus" />
+    <file url="file://$PROJECT_DIR$/demo_data.sql" dialect="OracleSqlPlus" />
+    <file url="file://$PROJECT_DIR$/drop_database.sql" dialect="OracleSqlPlus" />
   </component>
 </project>

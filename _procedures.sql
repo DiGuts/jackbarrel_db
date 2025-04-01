@@ -19,6 +19,16 @@ BEGIN
                          ROUND(f.preufinal, 2) || '€');
 END;
 
+-- Procediment actualitzar vendes client.
+
+create or replace procedure actualitzar_vendes_client (cVenda int, cClient int) is
+begin
+    UPDATE client
+    SET client.valortotalvendes = client.valortotalvendes + total_venda(cVenda)
+    WHERE client.codiclient = cClient;
+    COMMIT;
+end;
+
 -- Procediment valida_venda(venda): crea una factura
 
 CREATE OR REPLACE PROCEDURE valida_venda(idvenda INT) AS
@@ -47,6 +57,8 @@ BEGIN
              JOIN venedor ON venda.codivenedor = venedor.codivenedor
     WHERE venda.codivenda = idvenda;
 
+    actualitzar_vendes_client(f.CODIVENDA, f.CODICLIENT);
+
     INSERT INTO factura
     VALUES (f.codivenda,
             f.codiclient,
@@ -65,6 +77,7 @@ BEGIN
             f.iva,
             f.preufinal);
     COMMIT;
+
 END;
 
 -- Procediment nova_venda(venda, client, venedor): crea una venda sense articles
@@ -130,3 +143,4 @@ BEGIN
             dbms_output.put_line(i.nom || ' (' || i.stockactual || ')');
         END LOOP;
 END;
+

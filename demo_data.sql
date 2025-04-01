@@ -30,4 +30,6 @@ call LINEA_VENDA(1, 1, 3, 4);
 call LINEA_VENDA(2, 1, 2, 2);
 call LINEA_VENDA(3, 2, 1, 1);
 call LINEA_VENDA(4, 2, 5, 3);
+call LINEA_VENDA(5, 3, 3, 2);
+call LINEA_VENDA(6, 3, 4, 1);
 
