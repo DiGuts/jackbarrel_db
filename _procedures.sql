@@ -144,3 +144,19 @@ BEGIN
         END LOOP;
 END;
 
+-- Procediment per a actualitzar el total de compres fetes al proveidor.
+create or replace procedure actualitzar_compres_proveidor (cProducte int, qComanda int) is
+    pProducte int;
+    cProveidor int;
+
+begin
+    SELECT PREU, CODIPROVEIDOR
+    INTO pProducte, cProveidor
+    FROM PRODUCTE
+    WHERE CODIPRODUCTE = cProducte;
+
+    UPDATE PROVEIDOR
+    SET PROVEIDOR.VALORTOTALCOMPRES = PROVEIDOR.VALORTOTALCOMPRES + (pProducte * qComanda)
+    WHERE PROVEIDOR.CODIPROVEIDOR = cProveidor;
+    COMMIT;
+end;

@@ -1,14 +1,14 @@
-INSERT INTO client VALUES (1, '12345678A', 'Joan', 'Garcia', 'Martí', 'Carrer Major 12', 'Barcelona', '612345678', 1500, 10);
-INSERT INTO client VALUES (2, '23456789B', 'Maria', 'López', 'Fernández', 'Avinguda Diagonal 34', 'Girona', '623456789', 3000, 15);
-INSERT INTO client VALUES (3, '34567890C', 'Pere', 'Sánchez', 'Ruiz', 'Passeig de Gràcia 56', 'Tarragona', '634567890', 500, 5);
-INSERT INTO client VALUES (4, '45678901D', 'Anna', 'Ferrer', 'Gómez', 'Carrer de València 78', 'Lleida', '645678901', 4200, 20);
-INSERT INTO client VALUES (5, '56789012E', 'Marc', 'Torres', 'Soler', 'Rambla Nova 90', 'Barcelona', '656789012', 2500, 12);
+INSERT INTO client VALUES (1, '12345678A', 'Joan', 'Garcia', 'Martí', 'Carrer Major 12', 'Barcelona', '612345678', 0, 10);
+INSERT INTO client VALUES (2, '23456789B', 'Maria', 'López', 'Fernández', 'Avinguda Diagonal 34', 'Girona', '623456789', 0, 15);
+INSERT INTO client VALUES (3, '34567890C', 'Pere', 'Sánchez', 'Ruiz', 'Passeig de Gràcia 56', 'Tarragona', '634567890', 0, 5);
+INSERT INTO client VALUES (4, '45678901D', 'Anna', 'Ferrer', 'Gómez', 'Carrer de València 78', 'Lleida', '645678901', 0, 20);
+INSERT INTO client VALUES (5, '56789012E', 'Marc', 'Torres', 'Soler', 'Rambla Nova 90', 'Barcelona', '656789012', 0, 12);
 
-INSERT INTO proveidor VALUES (1, '87654321Z', 'Electrocat S.L.', 'Carrer Indústria 5', 'Barcelona', '667890123', 'Jordi Pujol', 12000);
-INSERT INTO proveidor VALUES (2, '76543210Y', 'Papereria Girona', 'Plaça Catalunya 15', 'Girona', '678901234', 'Montse Rovira', 8000);
-INSERT INTO proveidor VALUES (3, '65432109X', 'Moble House', 'Carrer del Comerç 32', 'Tarragona', '689012345', 'Pau Vila', 15000);
-INSERT INTO proveidor VALUES (5, '43210987V', 'Textil BCN', 'Gran Via 120', 'Barcelona', '601234567', 'Albert Grau', 11000);
-INSERT INTO proveidor VALUES (4, '54321098W', 'Informàtica Lleida', 'Av. Prat de la Riba 22', 'Lleida', '690123456', 'Carla Esteve', 9500);
+INSERT INTO proveidor VALUES (1, '87654321Z', 'Electrocat S.L.', 'Carrer Indústria 5', 'Barcelona', '667890123', 'Jordi Pujol', 0);
+INSERT INTO proveidor VALUES (2, '76543210Y', 'Papereria Girona', 'Plaça Catalunya 15', 'Girona', '678901234', 'Montse Rovira', 0);
+INSERT INTO proveidor VALUES (3, '65432109X', 'Moble House', 'Carrer del Comerç 32', 'Tarragona', '689012345', 'Pau Vila', 0);
+INSERT INTO proveidor VALUES (5, '43210987V', 'Textil BCN', 'Gran Via 120', 'Barcelona', '601234567', 'Albert Grau', 0);
+INSERT INTO proveidor VALUES (4, '54321098W', 'Informàtica Lleida', 'Av. Prat de la Riba 22', 'Lleida', '690123456', 'Carla Esteve', 0);
 
 INSERT INTO venedor VALUES (1, '11111111H', 'Sergi', 'Pérez', 'Navarro', 'Carrer Aragó 45', 'Barcelona', '611111111', 5.5, 1800);
 INSERT INTO venedor VALUES (2, '22222222J', 'Laura', 'Martínez', 'Soler', 'Carrer Gran 67', 'Girona', '622222222', 6.0, 1950);

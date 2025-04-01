@@ -16,8 +16,12 @@ BEGIN
         comanda_quantitat := p.stockminim - p.stockactual;
         INSERT INTO comanda
         VALUES (codi_comanda, p.codiproducte, comanda_quantitat, SYSDATE);
+        ACTUALITZAR_COMPRES_PROVEIDOR(p.codiproducte, comanda_quantitat);
     END IF;
 EXCEPTION
     WHEN OTHERS THEN
         dbms_output.put_line(SQLERRM);
 END;
+
+
+
