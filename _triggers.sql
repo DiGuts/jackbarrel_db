@@ -21,3 +21,20 @@ EXCEPTION
     WHEN OTHERS THEN
         dbms_output.put_line(SQLERRM);
 END;
+
+CREATE OR REPLACE TRIGGER vendadetall_validacio
+    BEFORE UPDATE OR INSERT
+    ON vendadetall
+    FOR EACH ROW
+DECLARE
+    producte_id    NUMBER;
+    producte_stock NUMBER;
+BEGIN
+    SELECT codiproducte, stockactual INTO producte_id, producte_stock FROM producte WHERE :NEW.producte = codiproducte;
+
+    IF :NEW.quantitat < producte_stock THEN
+        UPDATE producte
+        SET stockactual = PRODUCTE.stockactual - :NEW.quantitat
+        WHERE codiproducte = producte_id;
+    END IF;
+END;
