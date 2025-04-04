@@ -93,7 +93,9 @@ CREATE TABLE comanda
     codiComanda int PRIMARY KEY,
     producte_codi int NOT NULL,
     quantitat NUMBER,
-    dataComanda DATE
+    dataComanda DATE,
+    realitzada NUMBER(1),
+    CONSTRAINT chk_realitzada_boolean CHECK (realitzada BETWEEN 0 AND 1)
 );
 
 ALTER TABLE venda
