@@ -12,6 +12,9 @@ BEGIN
     SELECT NVL(MAX(codicomanda), 0) INTO codi_comanda FROM comanda;
     codi_comanda := codi_comanda + 1;
 
+    UPDATE PRODUCTE SET STOCKACTUAL = STOCKACTUAL - quantitat
+    WHERE CODIPRODUCTE = cproducte;
+
     IF p.stockactual < p.stockminim THEN
         comanda_quantitat := p.stockminim - p.stockactual;
         INSERT INTO comanda
