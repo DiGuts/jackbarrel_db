@@ -123,6 +123,7 @@ BEGIN
     VALUES (clineavenda, cvenda, cproducte, quantitat);
     COMMIT;
 
+
 EXCEPTION
 
     WHEN integritatref THEN
