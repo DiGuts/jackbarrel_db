@@ -39,3 +39,20 @@ BEGIN
         WHERE codiproducte = producte_id;
     END IF;
 END;
+
+CREATE OR REPLACE TRIGGER evitar_venda_fora_horari
+    BEFORE INSERT OR UPDATE ON VENDA
+    FOR EACH ROW
+DECLARE
+    v_hora NUMBER;
+    v_dia NUMBER;
+BEGIN
+    -- Extreure l'hora i el dia de la setmana de la data de la venda
+    v_hora := TO_NUMBER(TO_CHAR(:NEW.DATAVENDA, 'HH24'));
+    v_dia := TO_NUMBER(TO_CHAR(:NEW.DATAVENDA, 'D')); -- 1 = Diumenge, 2 = Dilluns, ..., 7 = Dissabte
+
+    -- En un sistema on la setmana comença en diumenge, cal ajustar l'índex del dia
+    IF v_dia = 1 OR v_dia = 7 OR v_hora < 8 OR v_hora >= 15 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'No es poden fer vendes fora de l''horari d''obertura (8h-15h, laborables)');
+    END IF;
+END;
