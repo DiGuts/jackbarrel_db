@@ -123,6 +123,9 @@ BEGIN
     VALUES (clineavenda, cvenda, cproducte, quantitat);
     COMMIT;
 
+    UPDATE PRODUCTE SET STOCKACTUAL = STOCKACTUAL - quantitat
+    WHERE CODIPRODUCTE = cproducte;
+
 EXCEPTION
 
     WHEN integritatref THEN
