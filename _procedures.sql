@@ -21,13 +21,13 @@ END;
 
 -- Procediment actualitzar vendes client.
 
-create or replace procedure actualitzar_vendes_client (cVenda int, cClient int) is
-begin
+CREATE OR REPLACE PROCEDURE actualitzar_vendes_client(cvenda int, cclient int) IS
+BEGIN
     UPDATE client
-    SET client.valortotalvendes = client.valortotalvendes + total_venda(cVenda)
-    WHERE client.codiclient = cClient;
+    SET client.valortotalvendes = client.valortotalvendes + total_venda(cvenda)
+    WHERE client.codiclient = cclient;
     COMMIT;
-end;
+END;
 
 -- Procediment valida_venda(venda): crea una factura
 
@@ -57,7 +57,7 @@ BEGIN
              JOIN venedor ON venda.codivenedor = venedor.codivenedor
     WHERE venda.codivenda = idvenda;
 
-    actualitzar_vendes_client(f.CODIVENDA, f.CODICLIENT);
+    actualitzar_vendes_client(f.codivenda, f.codiclient);
 
     INSERT INTO factura
     VALUES (f.codivenda,
@@ -123,8 +123,9 @@ BEGIN
     VALUES (clineavenda, cvenda, cproducte, quantitat);
     COMMIT;
 
-    UPDATE PRODUCTE SET STOCKACTUAL = STOCKACTUAL - quantitat
-    WHERE CODIPRODUCTE = cproducte;
+    UPDATE producte
+    SET stockactual = stockactual - quantitat
+    WHERE codiproducte = cproducte;
 
 EXCEPTION
 
@@ -148,18 +149,18 @@ BEGIN
 END;
 
 -- Procediment per a actualitzar el total de compres fetes al proveidor.
-create or replace procedure actualitzar_compres_proveidor (cProducte int, qComanda int) is
-    pProducte int;
-    cProveidor int;
+CREATE OR REPLACE PROCEDURE actualitzar_compres_proveidor(cproducte int, qcomanda int) IS
+    pproducte  int;
+    cproveidor int;
 
-begin
-    SELECT PREU, CODIPROVEIDOR
-    INTO pProducte, cProveidor
-    FROM PRODUCTE
-    WHERE CODIPRODUCTE = cProducte;
+BEGIN
+    SELECT preu, codiproveidor
+    INTO pproducte, cproveidor
+    FROM producte
+    WHERE codiproducte = cproducte;
 
-    UPDATE PROVEIDOR
-    SET PROVEIDOR.VALORTOTALCOMPRES = PROVEIDOR.VALORTOTALCOMPRES + (pProducte * qComanda)
-    WHERE PROVEIDOR.CODIPROVEIDOR = cProveidor;
+    UPDATE proveidor
+    SET proveidor.valortotalcompres = proveidor.valortotalcompres + (pproducte * qcomanda)
+    WHERE proveidor.codiproveidor = cproveidor;
     COMMIT;
-end;
+END;
