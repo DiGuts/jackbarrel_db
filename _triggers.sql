@@ -42,3 +42,27 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20001, 'No es poden fer vendes fora de l''horari d''obertura (8h-15h, laborables)');
     END IF;
 END;
+
+
+CREATE OR REPLACE TRIGGER no_increment
+    BEFORE UPDATE ON venedor
+    FOR EACH ROW
+DECLARE
+    vPitjorVenedor venedor.codiVenedor%TYPE;
+BEGIN
+    -- Obtenir el codi del venedor amb menys vendes (totalFactura) en l'última setmana
+    SELECT f.codiVenedor
+    INTO vPitjorVenedor
+    FROM factura f
+    WHERE f.dataVenda >= SYSDATE - 7
+    GROUP BY f.codiVenedor
+    ORDER BY SUM(f.totalFactura)
+        FETCH FIRST 1 ROWS ONLY;
+
+    -- Si és el pitjor venedor, no permetre augment de salari ni comissió
+    IF :OLD.codiVenedor = vPitjorVenedor THEN
+        IF :NEW.salari > :OLD.salari OR :NEW.comissio > :OLD.comissio THEN
+            RAISE_APPLICATION_ERROR(-20001, 'No es pot incrementar el salari o la comissió del venedor amb pitjors vendes aquesta setmana.');
+        END IF;
+    END IF;
+END;
